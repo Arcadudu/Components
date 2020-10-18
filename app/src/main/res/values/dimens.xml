@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="twenty">20sp</dimen>
+    <dimen name="twenty_two">22sp</dimen>
+    <dimen name="twenty_four">24sp</dimen>
+    <dimen name="twenty_six">26sp</dimen>
+
+    <dimen name="twenty_eight">28sp</dimen>
+
+    <dimen name="thirty">30sp</dimen>
+    <dimen name="thirty_two">32sp</dimen>
+    <dimen name="thirty_four">34sp</dimen>
+    <dimen name="thirty_six">36sp</dimen>
+
+</resources>
