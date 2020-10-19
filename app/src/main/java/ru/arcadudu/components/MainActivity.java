@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_text;
+
+    private AutoCompleteTextView autoCompleteTV;
+    String[] months;
 
     private BottomAppBar appBar;
     private ConstraintLayout bottomSheetConstraint;
@@ -42,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<Integer> colorList = new ArrayList<>();
     int colorIndex = 0;
 
-    List<String> autocompleteList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         packSizeList();
         packColorList();
 
+        // autocomplete tv
+        months = getResources().getStringArray(R.array.months);
+        autoCompleteTV = findViewById(R.id.autoComplete);
+        autoCompleteTV.setHintTextColor(getColor(R.color.grey));
+        ArrayAdapter<String> autoCompAdapter = new ArrayAdapter<>
+                (this, R.layout.autocomplete_item_layout, R.id.tv_auto_complete_item, months);
+        autoCompleteTV.setAdapter(autoCompAdapter);
+        autoCompleteTV.setThreshold(1);
 
 
         // default text tv
@@ -118,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
 
 
     private void packColorList() {
