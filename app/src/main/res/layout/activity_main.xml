@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-
-
+    
     <TextView
         android:id="@+id/tv_test"
         android:layout_width="match_parent"
@@ -59,6 +57,7 @@
             android:gravity="center"
             app:fabAlignmentMode="end"
             app:fabCradleMargin="5dp"
+            app:fabAnimationMode="slide"
             app:navigationIcon="@drawable/ic_baseline_menu_24" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,8 +67,9 @@
             android:backgroundTint="@color/orange"
             android:src="@drawable/ic_baseline_add_24"
             app:borderWidth="0dp"
-            app:elevation="2dp"
+            app:elevation="10dp"
             app:layout_anchor="@id/bottom_app_bar"
+            app:showMotionSpec="@anim/fab_scale_up"
             app:tint="@color/white"
             />
 

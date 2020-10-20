@@ -1,11 +1,12 @@
 package ru.arcadudu.components;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,12 +27,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_text;
 
     private AutoCompleteTextView autoCompleteTV;
     String[] months;
+
 
     private BottomAppBar appBar;
     private ConstraintLayout bottomSheetConstraint;
@@ -73,6 +79,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bottomSheetConstraint = findViewById(R.id.bottom_sheet_constraint);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetConstraint);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    Log.e("AA", "STATE_HIDDEN");
+                    fab.show();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -124,7 +145,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         appBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                fab.hide(new FloatingActionButton.OnVisibilityChangedListener() {
+                    @Override
+                    public void onHidden(FloatingActionButton fab) {
+                        super.onHidden(fab);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                });
             }
         });
     }
@@ -149,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dimensList.add(getResources().getDimension(R.dimen.thirty_two));
         dimensList.add(getResources().getDimension(R.dimen.thirty_four));
         dimensList.add(getResources().getDimension(R.dimen.thirty_six)); // max size
+
     }
 
     public void increaseSize() {
@@ -164,10 +193,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (currentSizeIndex > 0) {
             currentSizeIndex -= 1;
             tv_text.setTextSize(dimensList.get(currentSizeIndex));
+            tv_text.setTextSize(toPx(this, 16));
         } else {
             Toast.makeText(this, "Достигнут предел уменьшения", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     @Override
     public void onClick(View view) {

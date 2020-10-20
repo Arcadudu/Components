@@ -4,7 +4,7 @@
     <string name="zoom_out">Уменьшить текст</string>
     <string name="change_color">Изменить цвет</string>
 
-<!--autoComplete-->
+    <!--autoComplete-->
     <string-array name="months">
         <item>January</item>
         <item>February</item>
@@ -19,4 +19,13 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+
+<!--    -->
+    <string name="str1">string1</string>
+    <string name="str2">string2</string>
+    <string name="str3">string3</string>
+    <string name="str4">string4</string>
+    <string name="str5">string5</string>
+
 </resources>
